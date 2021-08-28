@@ -1,0 +1,25 @@
+{% extends 'uploader/main.html' %}
+{% block title %} <title>singup</title> {% endblock title %}
+
+{% block main %}
+
+    <div class="mx-auto shadow mt-5 p-3" style='width:600px'>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row p-3 g-3">
+                {% for fields in form %}
+                    <div class="col-12">
+                        {{fields}}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class='p-3'>
+                <input type="submit" value="signup" class='btn btn-secondary'>
+                <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
+            </div>
+        </form>
+        <hr>
+        <a href="{% url 'home' %}" class='btn btn-link'>Back</a>
+    </div>
+
+{% endblock main %}
