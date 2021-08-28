@@ -1,0 +1,46 @@
+{% extends 'uploader/main.html' %}
+{% load static %}
+{% block title %} <title>Profile</title> {% endblock title %}
+
+{% block main %}
+    
+    <div class="container shadow mt-4 p-3">
+        <h1 class="text-center">Welcome {{request.user.first_name}}</h1>
+        <div class="row gy-3">
+            <div class="col-md-3">
+                {% for user_img in images|slice:":1" %}
+                    {% if user_img.user.image %}
+                        <img src="{{user_img.user.image.url}}" class="img-thumbnail" alt="pic" width="400px" height="400px">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-9">
+                <form action="" method="POST" enctype="multipart/form-data" class="clearfix">
+                    {% csrf_token %}
+                    <div style="width:300px" class="float-end pb-3">
+                        <div class="mb-3">
+                            {{form.image}}
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                            {{form.set_public.label_tag}} {{form.set_public}}
+                            </div>
+                        </div>
+                        <input type="submit" value="Upload" class="btn btn-secondary">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <h3>Your Gallary</h3>
+            {% for image in images %}
+                <div class="col-md 4">
+                    {% if image.image %}
+                        <img src="{{image.image.url}}" class="img-thumbnail" alt="pic" width="400px" height="400px">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endblock main %}
